@@ -43,11 +43,11 @@ npm ci --prefix server
 npm test
 npm run build
 npx -y firebase-tools@latest login
-npx -y firebase-tools@latest functions:secrets:set NEIS_API_KEY --project PROJECT_ID
-npx -y firebase-tools@latest deploy --only functions,hosting --project PROJECT_ID
+npx -y firebase-tools@latest functions:secrets:set NEIS_API_KEY --project webapphub-hayong
+npx -y firebase-tools@latest deploy --only functions,hosting --project webapphub-hayong
 ```
 
-`PROJECT_ID`를 실제 전용 프로젝트로 교체합니다. 키는 CLI의 숨김 입력에만 입력하고 코드·셸 명령·채팅에 넣지 않습니다. Hosting은 `firebase-public/`에 생성한 공개 파일만 배포하며, `dist/server/`와 숨김 파일은 복사하지 않습니다. 로컬에 이전 Sites 설정을 보관한 경우에만 `npm run build:sites`를 사용할 수 있습니다. 해당 공급자 설정과 생성 서버 번들은 GitHub 업로드 대상에서 제외합니다.
+이 저장소의 기본 Firebase 프로젝트는 `webapphub-hayong`입니다. 다른 계정에서 복제하는 경우 프로젝트 설정을 변경하세요. 키는 CLI의 숨김 입력에만 입력하고 코드·셸 명령·채팅에 넣지 않습니다. Hosting은 `firebase-public/`에 생성한 공개 파일만 배포하며, `dist/server/`와 숨김 파일은 복사하지 않습니다. 로컬에 이전 Sites 설정을 보관한 경우에만 `npm run build:sites`를 사용할 수 있습니다. 해당 공급자 설정과 생성 서버 번들은 GitHub 업로드 대상에서 제외합니다.
 
 ```sh
 npx -y firebase-tools@latest emulators:start --only hosting,functions --project demo-classroom-toolbox
@@ -109,7 +109,9 @@ dist/
 server/school-api.mjs              인증키를 서버에서만 쓰는 나이스 조회
 tests/core.test.mjs                핵심 회귀 테스트
 scripts/serve.mjs                  로컬 확인용 정적 서버
-.openai/hosting.json               Sites Worker 배포 설정
+server/index.mjs                   Firebase Functions 진입점
+scripts/build-firebase.mjs         공개 자원만 생성 폴더로 복사
+firebase.json, .firebaserc         Firebase 배포 설정
 docs/                             명세서·검증 기록
 ```
 
@@ -121,6 +123,6 @@ docs/                             명세서·검증 기록
 
 ## 배포·등록
 
-Sites에서 `.openai/hosting.json`의 기존 project_id를 유지하고 `node scripts/build-worker.mjs` 후 Worker를 배포합니다. 변경 시 핵심 테스트와 영향받은 화면을 검증한 뒤 같은 사이트에 배포하세요. 배포·등록 결과는 작업공간의 운영 기록에 별도로 남깁니다. 재배포 때마다 등록 신청을 다시 하면 안 됩니다.
+위 Firebase 배포 절차를 사용합니다. 변경 시 핵심 테스트와 영향받은 화면을 검증한 뒤 같은 프로젝트에 배포하세요. 배포·등록 결과는 작업공간의 운영 기록에 별도로 남깁니다. 기존 별자리 등록은 이미 승인됐으며 현재 이전 사이트 URL을 가리킵니다. 같은 URL의 재배포는 다시 등록하지 않습니다. 공개 주소를 바꾸는 경우 운영자의 새 접수·기존 카드 취소 안내에 따라 별도로 처리해야 합니다.
 
 등록 안내: https://github.com/Taehwan-Shin/teacher-hub/blob/main/REGISTRATION_API.md
