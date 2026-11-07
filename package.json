@@ -1,0 +1,1 @@
+{"name":"classroom-toolbox","version":"1.1.0","private":true,"type":"module","scripts":{"test":"node --test","dev":"node scripts/serve.mjs","build":"node scripts/build-firebase.mjs","build:sites":"node scripts/build-worker.mjs"},"engines":{"node":">=22"}}

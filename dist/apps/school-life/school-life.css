@@ -1,0 +1,135 @@
+.school-main { width: 100%; max-width: 1280px; margin: 0 auto; padding: 26px 32px 64px; flex: 1; }
+.school-heading { margin-bottom: 28px; }
+.school-heading .breadcrumb { margin-bottom: 22px; }
+.school-title-line { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+.school-title-line .tool-icon { flex-shrink: 0; }
+.school-identity { display: flex; align-items: center; flex-wrap: wrap; justify-content: flex-end; gap: 10px 14px; font-size: 14px; }
+.school-identity > span { font-weight: 600; }
+.school-identity small { margin-left: 6px; font-size: 12px; color: var(--muted); font-weight: 400; }
+.school-identity strong { padding: 7px 12px; border-radius: 7px; background: var(--blue-soft); color: var(--blue); font-size: 13px; font-weight: 600; }
+.date-bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px 24px; padding: 22px 24px; border: 1px solid #dfe7f3; border-radius: 14px; background: #f8faff; }
+.selected-date-heading p { color: #586b85; font-size: 12px; margin-bottom: 2px; }
+.selected-date-heading h2 { font-size: 23px; line-height: 1.5; letter-spacing: -.7px; font-variant-numeric: tabular-nums; }
+.date-controls { display: flex; align-items: center; gap: 8px; }
+.date-controls .button { min-height: 44px; padding: 9px 17px; background: #fff; }
+.date-controls .date-arrow { width: 44px; padding: 10px; }
+.date-controls .date-arrow .icon { width: 18px; height: 18px; }
+.date-field { min-width: 0; }
+.date-field input { display: block; width: 162px; max-width: 100%; min-width: 0; min-height: 44px; padding: 8px 11px; border: 1px solid #d6dbe2; border-radius: 8px; color: var(--ink); background: #fff; font-size: 14px; font-variant-numeric: tabular-nums; }
+.date-field input[aria-invalid="true"] { border-color: var(--red); }
+.date-error { width: 100%; color: var(--red); font-size: 13px; }
+.date-error:empty { display: none; }
+.school-page button:disabled { cursor: not-allowed; }
+.school-page button:disabled:hover { box-shadow: none; }
+.school-data-meta { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 4px 16px; margin: 13px 1px 25px; color: var(--muted); font-size: 12px; }
+.school-data-meta .has-error { color: #8d4b00; }
+.school-layout { display: grid; grid-template-columns: minmax(270px, .8fr) minmax(0, 1.8fr); gap: 24px; align-items: start; }
+.school-panel { min-width: 0; max-width: 100%; border: 1px solid var(--line); border-radius: 16px; padding: 24px; background: #fff; }
+.school-panel-heading { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 22px; }
+.school-panel-heading h2 { font-size: 20px; margin-top: 2px; }
+.panel-eyebrow { color: var(--muted); font-size: 12px; font-variant-numeric: tabular-nums; }
+.panel-label { color: #586b85; font-size: 11px; padding: 5px 8px; background: var(--surface); border-radius: 5px; white-space: nowrap; }
+.meal-card + .meal-card { border-top: 1px solid var(--line); padding-top: 23px; margin-top: 23px; }
+.meal-card-heading { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 4px 10px; margin-bottom: 12px; }
+.meal-card-heading h3 { color: var(--blue); font-size: 15px; letter-spacing: -.2px; }
+.meal-calories { color: var(--muted); font-size: 11px; }
+.meal-dishes { padding: 0; margin: 0; list-style: none; display: grid; gap: 6px; font-size: 14px; line-height: 1.65; }
+.meal-dishes li { overflow-wrap: anywhere; }
+.allergy-note { border-top: 1px solid var(--line); padding-top: 18px; margin-top: 23px; color: var(--muted); font-size: 11px; line-height: 1.8; }
+.school-state { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 260px; padding: 20px 4px 28px; text-align: center; }
+.school-state > .state-icon { width: 46px; height: 46px; display: flex; align-items: center; justify-content: center; border-radius: 50%; color: #687c97; background: #f0f4f9; margin-bottom: 16px; }
+.state-icon > .icon { width: 23px; height: 23px; }
+.school-state h3, .school-state h2 { font-size: 15px; letter-spacing: -.3px; font-weight: 600; }
+.school-state p { max-width: 290px; margin-top: 8px; color: var(--muted); font-size: 12px; line-height: 1.8; overflow-wrap: anywhere; }
+.school-state .button { margin-top: 20px; font-size: 13px; }
+.school-state.is-loading .state-icon { color: var(--blue); }
+.school-state.is-loading .state-icon > .icon { animation: school-spin 1.7s linear infinite; }
+.school-state.is-error .state-icon { background: #fff5e7; color: #8d4b00; }
+.school-global { border: 1px solid var(--line); border-radius: 16px; padding: 28px 20px; background: #fff; }
+.school-global .school-state { min-height: 290px; }
+.school-global .school-state h2 { font-size: 20px; }
+.school-global .school-state p { max-width: 390px; font-size: 13px; }
+.school-global .state-icon { width: 54px; height: 54px; }
+.initial-loading { min-height: 260px; padding-top: 50px; text-align: center; color: var(--muted); font-size: 13px; }
+.timetable-scroll { width: 100%; max-width: 100%; overflow-x: auto; overscroll-behavior-x: contain; border: 1px solid var(--line); border-radius: 10px; scrollbar-width: thin; }
+.weekly-table { width: 100%; min-width: 570px; border-collapse: separate; border-spacing: 0; table-layout: fixed; font-size: 13px; }
+.weekly-table th, .weekly-table td { border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); text-align: center; vertical-align: top; }
+.weekly-table tr > :last-child { border-right: 0; }
+.weekly-table tbody tr:last-child > * { border-bottom: 0; }
+.weekly-table thead th { padding: 0; background: var(--surface); color: #56616f; font-size: 12px; font-weight: 500; }
+.weekly-table .period-column { width: 48px; padding: 23px 6px; vertical-align: middle; }
+.weekly-table tbody th { background: #fff; padding: 20px 4px; font-size: 12px; color: #646d78; font-weight: 500; vertical-align: middle; }
+.weekly-table td { height: 85px; padding: 13px 8px; overflow-wrap: anywhere; }
+.weekly-table .is-selected { background: #f1f6ff; }
+.weekly-table thead .is-selected { background: #e7f0ff; color: #185abc; }
+.table-date-button { width: 100%; min-height: 78px; border: 0; background: transparent; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1px; padding: 9px 4px; color: inherit; font-size: 12px; }
+.table-date-button:hover { background: #eaf1fb; }
+.table-date-button:focus-visible { position: relative; outline-offset: -4px; }
+.table-date-button .table-date { font-size: 15px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.table-day-status { min-height: 15px; font-size: 10px; color: #185abc; }
+.timetable-entries { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+.timetable-entries li + li { border-top: 1px dashed #cbd8ea; padding-top: 10px; }
+.timetable-subject { display: block; font-size: 13px; font-weight: 600; line-height: 1.55; }
+.timetable-detail { display: block; color: #657184; font-size: 10px; line-height: 1.6; margin-top: 3px; }
+.empty-lesson { color: #87909c; font-size: 13px; }
+.timetable-note { color: var(--muted); font-size: 11px; line-height: 1.8; margin-top: 10px; }
+.weekend-note { padding: 11px 13px; color: #4f6482; background: #f4f7fc; border-radius: 7px; font-size: 12px; margin-bottom: 15px; line-height: 1.8; }
+.mobile-view-switch { display: none; }
+.school-footer a:hover { color: var(--blue); text-decoration: underline; }
+@keyframes school-spin { to { transform: rotate(360deg); } }
+@media (max-width: 1050px) {
+  .school-main { padding-right: 24px; padding-left: 24px; }
+  .school-layout { grid-template-columns: minmax(245px, .8fr) minmax(0, 1.6fr); gap: 18px; }
+  .school-panel { padding: 20px; }
+  .panel-label { display: none; }
+}
+@media (max-width: 800px) {
+  .school-main { padding: 15px 20px 40px; }
+  .school-heading { margin-bottom: 24px; }
+  .school-title-line { align-items: flex-start; flex-direction: column; gap: 18px; }
+  .school-identity { justify-content: flex-start; font-size: 13px; gap: 12px; }
+  .school-identity strong { font-size: 12px; padding: 5px 9px; }
+  .date-bar { padding: 18px 20px; gap: 16px; }
+  .selected-date-heading h2 { font-size: 21px; }
+  .school-data-meta { margin-bottom: 22px; }
+  .mobile-view-switch { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); padding: 4px; gap: 4px; border: 1px solid #e5e9ef; border-radius: 10px; background: #edf1f6; margin-bottom: 18px; }
+  .mobile-view-switch button { min-height: 44px; display: inline-flex; align-items: center; justify-content: center; gap: 7px; border: 1px solid transparent; border-radius: 7px; background: transparent; color: #555f6d; font-size: 14px; font-weight: 600; }
+  .mobile-view-switch .icon { width: 17px; height: 17px; }
+  .mobile-view-switch button[aria-selected="true"] { background: #fff; border-color: #dbe4f1; color: var(--blue); }
+  .mobile-view-switch button:hover { background: #fff; }
+  .school-layout { display: block; }
+  [data-mobile-view="meals"] #timetable-panel, [data-mobile-view="timetable"] #meals-panel { display: none; }
+  .school-panel { padding: 22px 20px; }
+  .panel-label { display: inline; }
+  .school-panel-heading { margin-bottom: 22px; }
+  .meal-dishes { font-size: 15px; gap: 7px; }
+  .meal-card-heading h3 { font-size: 16px; }
+  .school-state p { font-size: 13px; }
+  .school-state { min-height: 285px; }
+  .weekly-table { min-width: 590px; }
+  .timetable-note { font-size: 12px; }
+  .school-footer { flex-wrap: wrap; gap: 8px 20px; }
+}
+@media (max-width: 540px) {
+  .date-bar { padding: 17px 16px; }
+  .selected-date-heading { width: 100%; }
+  .date-controls { width: 100%; display: grid; grid-template-columns: 44px minmax(0, 1fr) 44px auto; }
+  .date-field input { width: 100%; padding-left: 8px; padding-right: 8px; }
+  .date-controls #today-date { padding-right: 12px; padding-left: 12px; }
+  .school-data-meta { font-size: 11px; }
+  .school-data-meta #data-status { text-align: right; }
+  .school-global { padding: 20px 16px; }
+  .school-global .school-state h2 { font-size: 18px; }
+  .school-panel { padding: 20px 16px; }
+}
+@media (max-width: 360px) {
+  .school-main { padding-right: 16px; padding-left: 16px; }
+  .date-controls { gap: 6px; grid-template-columns: 40px minmax(0, 1fr) 40px auto; }
+  .date-controls .date-arrow { width: 40px; }
+  .date-field input { font-size: 12px; }
+  .date-controls #today-date { font-size: 12px; padding-right: 10px; padding-left: 10px; }
+  .panel-label { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .school-state.is-loading .state-icon > .icon { animation: none; }
+}

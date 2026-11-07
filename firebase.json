@@ -1,0 +1,27 @@
+{
+  "functions": {
+    "source": "server",
+    "codebase": "classroom-toolbox",
+    "runtime": "nodejs22",
+    "ignore": ["node_modules", ".git", "**/.*", "*.log"]
+  },
+  "hosting": {
+    "public": "firebase-public",
+    "predeploy": ["node scripts/build-firebase.mjs"],
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**", "server/**"],
+    "rewrites": [{
+      "source": "/api/school-week",
+      "function": { "functionId": "schoolWeek", "region": "asia-east1" }
+    }],
+    "headers": [
+      { "source": "**/*.mjs", "headers": [{ "key": "Content-Type", "value": "text/javascript; charset=utf-8" }] },
+      { "source": "**", "headers": [{ "key": "X-Content-Type-Options", "value": "nosniff" }] }
+    ]
+  },
+  "emulators": {
+    "hosting": { "host": "127.0.0.1", "port": 5000 },
+    "functions": { "host": "127.0.0.1", "port": 5001 },
+    "ui": { "enabled": false },
+    "singleProjectMode": true
+  }
+}

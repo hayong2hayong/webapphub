@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="짝꿍 3분단, 5행의 교실 자리표에서 최대 30명의 자리를 무작위로 배정하세요. 고정석과 빈자리 지정, 인쇄와 PDF 저장을 지원합니다.">
+  <meta name="theme-color" content="#ffffff">
+  <title>자리 배정 — 교실 도구함</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="./seating.css">
+  <script type="module" src="./seating.mjs"></script>
+</head>
+<body class="seating-page">
+  <a class="skip" href="#main">본문으로 건너뛰기</a>
+  <header class="site-header">
+    <a href="/" class="small-brand"><img src="/favicon.svg" width="28" height="28" alt=""><span>교실 도구함</span></a>
+    <a href="/" class="text-button"><span data-icon="grid"></span>모든 도구</a>
+  </header>
+  <main id="main" class="seating-main">
+    <div class="page-heading">
+      <a class="breadcrumb" href="/"><span data-icon="back"></span>도구함으로 돌아가기</a>
+      <div class="page-title-row">
+        <div class="tool-icon"><span data-icon="grid"></span></div>
+        <div><h1>자리 배정</h1><p>짝꿍과 나란히, 3분단 5행으로 우리 반 자리를 정해요.</p></div>
+      </div>
+    </div>
+    <div class="seating-layout">
+      <form id="seating-settings" class="settings-panel seating-settings" novalidate>
+        <h2>우리 반 설정</h2>
+        <div class="field">
+          <label for="student-count">학생 수</label>
+          <input id="student-count" type="number" min="1" max="30" step="1" value="30" inputmode="numeric" aria-describedby="student-count-hint" required>
+          <p class="field-hint" id="student-count-hint">1~30명 · 번호는 1번부터 시작해요.</p>
+        </div>
+        <div class="classroom-layout-note"><span data-icon="grid"></span><div><strong>짝꿍 3분단 × 5행</strong><span>두 자리씩 나란히, 모두 30자리예요.</span></div></div>
+        <div class="field excluded-field">
+          <label for="excluded">결석·제외 번호 <span class="muted">(선택)</span></label>
+          <input id="excluded" type="text" maxlength="5000" placeholder="예: 3, 7, 12" aria-describedby="excluded-hint">
+          <p class="field-hint" id="excluded-hint">쉼표나 공백으로 구분해 주세요.</p>
+        </div>
+        <p id="draft-summary" class="draft-summary">배정 대상 30명 · 고정석 0개 · 지정 빈자리 0개</p>
+        <p id="seating-error" class="form-error" role="alert"></p>
+        <div class="settings-actions">
+          <button id="assign" type="submit" class="button primary full"><span data-icon="dice"></span><span id="assign-label">자리 배정하기</span></button>
+          <button id="reset" type="button" class="button secondary full"><span data-icon="refresh"></span>초기화</button>
+        </div>
+        <p class="settings-note">학생 이름이나 명단은 입력하지 않아요. 설정과 결과는 현재 탭에서만 유지되며 새로고침하면 초기화돼요.</p>
+      </form>
+      <section class="seating-board-panel" id="board-panel" aria-labelledby="board-title">
+        <div class="board-toolbar">
+          <div class="board-modes" role="group" aria-label="자리표 보기 선택">
+            <button id="edit-mode" type="button" aria-pressed="true"><span data-icon="edit"></span>자리 편집</button>
+            <button id="result-mode" type="button" aria-pressed="false" disabled><span data-icon="check"></span>배정 결과</button>
+          </div>
+          <span class="board-badge" id="board-badge">배정 전</span>
+        </div>
+        <div class="board-heading"><h2 id="board-title">고정석과 빈자리를 정해요</h2><p id="board-description">좌석을 누르면 자동 배정, 빈자리, 번호 고정을 선택할 수 있어요.</p></div>
+        <p id="draft-notice" class="draft-notice" hidden></p>
+        <div class="board-meta"><p id="board-summary">짝꿍 3분단 × 5행 · 30자리</p><p class="board-direction">칠판이 있는 쪽이 교실 앞이에요.</p></div>
+        <div id="board-scroll" class="board-scroll" role="region" aria-label="3분단 자리 편집. 좁은 화면에서는 좌우로 스크롤할 수 있습니다." tabindex="0" aria-describedby="board-description">
+          <div id="board-canvas" class="board-canvas"></div>
+        </div>
+        <p class="board-scroll-hint">자리가 모두 보이지 않으면 자리표를 좌우로 움직여 주세요.</p>
+        <div id="seat-legend" class="seat-legend" aria-label="좌석 표시 안내"></div>
+        <p id="keyboard-hint" class="keyboard-hint">키보드: 방향키로 좌석 이동, Enter·Space로 설정 열기</p>
+        <div class="board-actions">
+          <button id="shuffle" type="button" class="button secondary" disabled><span data-icon="refresh"></span>다시 섞기</button>
+          <button id="print" type="button" class="button secondary" disabled aria-describedby="print-hint"><span data-icon="download"></span>인쇄 / PDF</button>
+        </div>
+        <p id="print-hint" class="print-hint">자리를 배정하면 인쇄할 수 있어요.</p>
+        <p id="seating-announcement" class="sr-only" aria-live="polite" aria-atomic="true"></p>
+      </section>
+    </div>
+  </main>
+  <dialog id="seat-dialog" class="seat-dialog" aria-labelledby="seat-dialog-title" aria-describedby="seat-dialog-description">
+    <form id="seat-editor" novalidate>
+      <div class="dialog-heading"><h2 id="seat-dialog-title">좌석 설정</h2><button id="seat-dialog-close" type="button" class="icon-button" aria-label="좌석 설정 닫기"><span data-icon="close"></span></button></div>
+      <p id="seat-dialog-description" class="dialog-description">이 자리를 어떻게 사용할까요?</p>
+      <fieldset class="seat-options">
+        <legend class="sr-only">좌석 배정 방식</legend>
+        <label class="seat-option"><input type="radio" name="seat-kind" value="auto" checked><span><strong>자동 배정</strong><small>배정할 때마다 번호를 무작위로 정해요.</small></span></label>
+        <label class="seat-option"><input type="radio" name="seat-kind" value="empty"><span><strong>빈자리</strong><small>번호를 배정하지 않고 비워 둬요.</small></span></label>
+        <label class="seat-option"><input type="radio" name="seat-kind" value="fixed"><span><strong>번호 고정</strong><small>다시 섞어도 같은 번호가 앉아요.</small></span></label>
+      </fieldset>
+      <div id="fixed-number-field" class="field fixed-number-field" hidden>
+        <label for="fixed-number">고정할 학생 번호</label>
+        <input id="fixed-number" type="number" min="1" max="30" step="1" inputmode="numeric" aria-describedby="fixed-number-hint">
+        <p id="fixed-number-hint" class="field-hint">현재 학생 수 안의 번호를 입력해 주세요. 제외 번호는 고정할 수 없어요.</p>
+      </div>
+      <p id="seat-editor-error" class="form-error" role="alert"></p>
+      <div class="dialog-actions"><button id="seat-dialog-cancel" type="button" class="button secondary">취소</button><button type="submit" class="button primary">저장</button></div>
+    </form>
+  </dialog>
+  <footer class="site-footer"><span>작은 도구, 더 여유로운 교실.</span><a href="/">교실 도구함으로 돌아가기</a></footer>
+  <div id="toast" role="status" aria-live="polite" class="toast"></div>
+  <section id="seating-print" class="seating-print" aria-label="인쇄용 자리 배정표"></section>
+  <p class="seating-print-blocked">자리표를 인쇄하려면 먼저 현재 설정으로 자리를 배정해 주세요.</p>
+  <noscript><p class="notice">자리를 배정하려면 브라우저에서 JavaScript를 허용해 주세요.</p></noscript>
+</body>
+</html>
