@@ -31,3 +31,16 @@ test('importing a valid older backup migrates personal id collisions and enforce
  assert.throws(()=>hubState.restoreHubBackupText(' '.repeat(1024*1024),publicIds));
  assert.throws(()=>hubState.restoreHubBackupText('{broken}',publicIds));
 });
+test('retiring a public tool preserves personal data and removes only its obsolete favorite on reload and import',()=>{
+ const previous={version:1,apps:[personal],favorites:['school-life','legacy-app','seating-chart']};
+ const before=structuredClone(previous);
+ const expected={version:1,apps:[personal],favorites:['legacy-app','seating-chart']};
+ assert.deepEqual(restoreHubState(previous,publicIds),expected);
+ assert.deepEqual(hubState.restoreHubBackupText(JSON.stringify(previous),publicIds),expected);
+ assert.deepEqual(previous,before);
+});
+test('a personal tool using a retired public id retains its favorite while unrelated invalid favorites are rejected',()=>{
+ const previous={version:1,apps:[{...personal,id:'school-life'}],favorites:['school-life']};
+ assert.deepEqual(restoreHubState(previous,publicIds),previous);
+ assert.throws(()=>restoreHubState({...previous,favorites:['school-life','missing-tool']},publicIds));
+});

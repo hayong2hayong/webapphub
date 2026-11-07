@@ -1,5 +1,7 @@
 # GitHub·Firebase 이전 구현 계획
 
+> **역사 기록 · 폐기됨 (2026-11-07):** Firebase 이전과 학교 조회 백엔드를 중단했다. 기존 GitHub 저장소와 Sites 주소의 정적 사이트를 유지한다. 아래 절차는 현재 작업 지시가 아니며 클라우드 생성·비밀 등록·배포 명령을 실행하지 않는다. 현재 범위는 [개발명세서](../../SPEC.md)를 따른다.
+
 > **For agentic workers:** Use executing-plans for this migration; independent implementation/review may be delegated. Steps use checkbox tracking.
 
 **Goal:** 기존 교실 도구함 코드를 GitHub에 보관하고 Firebase에서 운영한다.

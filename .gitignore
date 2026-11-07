@@ -3,10 +3,6 @@ node_modules/
 .DS_Store
 *.log
 .superpowers/
-.firebase/
-firebase-debug.log*
-server/.secret.local
-firebase-public/
 /.openai/
 /dist/.openai/
 /dist/server/
